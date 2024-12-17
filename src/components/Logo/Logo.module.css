@@ -1,0 +1,24 @@
+.logo {
+  position: absolute;
+  top: 0;
+  left: 64px;
+  z-index: 100;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  font-size: 0;
+}
+.logoSvg {
+  width: 136px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  fill: #475467;
+}
+.logo:hover .logoSvg {
+  fill: #d84343;
+}
+@media only screen and (max-width: 416px) {
+  .logo {
+    left: 16px;
+  }
+}

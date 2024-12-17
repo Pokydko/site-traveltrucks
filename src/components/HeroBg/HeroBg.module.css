@@ -1,0 +1,42 @@
+.heroBg {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  max-width: 1440px;
+  height: 100vh;
+  max-height: 696px;
+  margin: 0 auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../../img/hero-bg.jpg");
+  background-color: gray;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (min-resolution: 2dppx) {
+  .heroBg {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url("../../img/hero-bg@2x.jpg");
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+@supports (background-image: url("../img/hero-bg.webp")) {
+  .heroBg {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url("../../img/hero-bg.webp");
+    background-position: center center;
+    background-size: cover;
+  }
+
+  @media only screen and (min-resolution: 2dppx) {
+    .heroBg {
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        url("../../img/hero-bg@2x.webp");
+      background-position: center center;
+      background-size: cover;
+    }
+  }
+}
