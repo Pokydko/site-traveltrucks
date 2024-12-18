@@ -1,5 +1,5 @@
 .logo {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 64px;
   z-index: 100;
@@ -20,5 +20,10 @@
 @media only screen and (max-width: 416px) {
   .logo {
     left: 16px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .logo {
+    left: calc(64px + (100% - 1440px) / 2);
   }
 }

@@ -2,8 +2,8 @@ import "./App.css";
 import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
+import Navigation from "./components/Navigation/Navigation";
 
-const Navigation = lazy(() => import("./components/Navigation/Navigation"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const CamperDetailsPage = lazy(() => import("./pages/CamperDetailsPage"));
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       <header>
-        <Navigation></Navigation>
+        <Navigation />
       </header>
       <main>
         <Suspense

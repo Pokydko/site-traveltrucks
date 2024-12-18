@@ -1,13 +1,16 @@
 .nav {
   position: fixed;
   top: 0;
+  left: 50%;
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 1440px;
   height: 72px;
   margin: 0 auto;
   background-color: #f7f7f7;
   font-size: 16px;
+  transform: translateX(-50%);
 }
 @media only screen and (max-width: 693px) {
   .nav {
