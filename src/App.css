@@ -2,7 +2,7 @@
 
 body {
   background: #fff;
-  color: #475467;
+  color: #101828;
   font-weight: 400;
   font-size: 16px;
   font-family: "Inter", sans-serif;
@@ -29,7 +29,13 @@ ol {
 
 a {
   color: inherit;
+  outline: transparent;
   text-decoration: none;
+  transition: color 250ms ease-in-out;
+}
+a:focus {
+  color: #e44848;
+  /* text-decoration: overline; */
 }
 
 img {
@@ -40,25 +46,33 @@ img {
   margin: 0 auto;
 }
 
+button {
+  padding: 0;
+  border: transparent;
+  background-color: transparent;
+  outline: transparent;
+  line-height: 0;
+  cursor: pointer;
+}
+
 .btn {
   display: inline-flex;
   justify-content: center;
   min-width: 166px;
   min-height: 56px;
   padding: 16px 10px;
-  border: transparent;
   border-radius: 200px;
   background-color: #e44848;
   color: #fff;
-  outline: transparent;
   font-weight: 500;
   font-size: 16px;
-  font-family: inherit;
   letter-spacing: -0.01em;
   cursor: pointer;
 }
-.btn:hover {
+.btn:hover,
+.btn:focus {
   background-color: #d84343;
+  color: #fff;
 }
 
 .btnWhite {

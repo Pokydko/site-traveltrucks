@@ -14,7 +14,8 @@
   padding: 0;
   fill: #475467;
 }
-.logo:hover .logoSvg {
+.logo:hover .logoSvg,
+.logo:focus .logoSvg {
   fill: #d84343;
 }
 @media only screen and (max-width: 416px) {
