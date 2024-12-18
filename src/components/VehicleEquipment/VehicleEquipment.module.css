@@ -1,0 +1,44 @@
+.equipmentList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow-y: auto;
+  height: 104px;
+  margin-bottom: 24px;
+}
+
+.equipmentItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: 100px;
+  background-color: #f2f4f7;
+}
+
+.equipmentSvg {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  fill: #101828;
+  stroke: #101828;
+  transition: stroke 150ms ease;
+  transition: fill 150ms ease;
+}
+.equipmentItem:hover .equipmentSvg {
+  fill: #ffc531;
+  stroke: #ffc531;
+}
+
+/*  */
+.scrollbar::-webkit-scrollbar {
+  width: 20px;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-image: url("../../img/scroll.png");
+  background-size: 15px;
+  background-repeat: no-repeat, no-repeat;
+}
+/*  */

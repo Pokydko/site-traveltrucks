@@ -1,11 +1,24 @@
 import css from "./CatalogCard.module.css";
+import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 
 export default function CatalogCard({
   camper: { name, description, gallery, price, rating, reviews, location },
+  camper,
 }) {
   const formatLocation = (string) => {
     const [country, city] = string.split(",");
     return city + ", " + country;
+  };
+
+  const getOptions = (obj) => {
+    const options = Object.keys(obj).filter((key) => obj[key] === true);
+    if (!obj.gas) options.push("Petrol");
+    if (obj.transmission === "automatic") options.push("Automatic");
+    return options;
+  };
+
+  const buildName = () => {
+    return name.slice(0, 31) + (name.length > 31 ? "..." : "");
   };
 
   return (
@@ -19,7 +32,7 @@ export default function CatalogCard({
       </div>
       <div className={css.cardInfo}>
         <div className={css.titleWithPrice}>
-          <h2>{name}</h2>
+          <h2>{buildName()}</h2>
           <span className={css.price}>
             &#8364;{price}.00
             <button>
@@ -43,6 +56,8 @@ export default function CatalogCard({
           {formatLocation(location)}
         </div>
         <p className={css.about}>{description.slice(0, 61)}...</p>
+        <VehicleEquipment equipment={getOptions(camper)} camperId={camper.id} />
+        <button className="btn">Show more</button>
       </div>
     </div>
   );

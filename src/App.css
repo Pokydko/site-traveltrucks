@@ -58,6 +58,7 @@ button {
 .btn {
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   min-width: 166px;
   min-height: 56px;
   padding: 16px 10px;
