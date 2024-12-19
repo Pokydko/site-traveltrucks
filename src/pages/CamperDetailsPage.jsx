@@ -7,6 +7,7 @@ import { selectCampers } from "../redux/campers/selectors";
 import css from "./CamperDetailsPage.module.css";
 import ImageModal from "../components/ImageModal/ImageModal";
 import BookingForm from "../components/BookingForm/BookingForm";
+import NameRatingLocation from "../components/NameRatingLocation/NameRatingLocation";
 
 export default function CamperDetailsPage() {
   const dispatch = useDispatch();
@@ -69,7 +70,13 @@ export default function CamperDetailsPage() {
         {/* <Link to={backLinkHref} className={css.goBackLink}>
           ← Go back
         </Link> */}
-        <h1>{chosenCamper.name}</h1>
+        <NameRatingLocation
+          name={chosenCamper.name}
+          rating={chosenCamper.rating}
+          reviews={chosenCamper.reviews}
+          location={chosenCamper.location}
+        />
+        <h2 className={css.price}>&#8364;{chosenCamper.price}.00</h2>
         <ul className={css.camperGallery}>
           {chosenCamper.gallery.map((foto) => (
             <li

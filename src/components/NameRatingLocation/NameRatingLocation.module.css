@@ -1,0 +1,41 @@
+.cardInfo {
+  flex-grow: 1;
+  max-width: 524px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.titleWithPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.titleWithPrice:hover,
+.titleWithPrice:focus-within {
+  fill: #ffc531;
+}
+
+h2 {
+  color: #101828;
+  line-height: 1.34;
+}
+.ratingLocation {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.starSvg {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  fill: #ffc531;
+  /* fill: #f2f4f7; */
+}
+.locationSvg {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  margin-left: 16px;
+}
