@@ -24,10 +24,42 @@
   transition: stroke 150ms ease;
   transition: fill 150ms ease;
 }
-.equipmentItem:hover .equipmentSvg {
+.equipmentItem:hover .equipmentSvg,
+.filtersStylesItem:hover .equipmentSvg {
   fill: #ffc531;
   stroke: #ffc531;
 }
+
+/*  */
+.filtersStylesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.filtersStylesItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 112px;
+  height: 96px;
+  padding: 16px 18px;
+  border: 1px solid #dadde1;
+  border-radius: 12px;
+  cursor: pointer;
+  mix-blend-mode: multiply;
+}
+.filtersStylesItem .equipmentSvg {
+  margin-right: 0;
+}
+.active {
+  border: 1px solid #e44848;
+}
+
+/*  */
 
 /*  */
 .scrollbar {

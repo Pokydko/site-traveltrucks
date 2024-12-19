@@ -11,15 +11,8 @@ export default function CatalogCard({
     return city + ", " + country;
   };
 
-  const getOptions = (obj) => {
-    const options = Object.keys(obj).filter((key) => obj[key] === true);
-    if (!obj.gas) options.push("Petrol");
-    if (obj.transmission === "automatic") options.push("Automatic");
-    return options;
-  };
-
   const buildName = () => {
-    return name.slice(0, 31) + (name.length > 31 ? "..." : "");
+    return name.slice(0, 25) + (name.length > 25 ? "..." : "");
   };
 
   return (
@@ -57,11 +50,7 @@ export default function CatalogCard({
           {formatLocation(location)}
         </div>
         <p className={css.about}>{description.slice(0, 61)}...</p>
-        <VehicleEquipment
-          equipment={getOptions(camper)}
-          camperId={id}
-          scrollbar={true}
-        />
+        <VehicleEquipment camper={camper} scrollbar={true} />
         {/* <NavLink to={`/catalog/${id}/features`} className="btn">
           Show more
         </NavLink> */}

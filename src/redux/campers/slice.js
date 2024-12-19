@@ -3,6 +3,19 @@ import { fetchCampers } from "./operations";
 
 const INITIAL_STATE = {
   campers: [],
+  filters: {
+    Automatic: false,
+    AC: false,
+    Bathroom: false,
+    Kitchen: false,
+    TV: false,
+    Radio: false,
+    Refrigerator: false,
+    Microwave: false,
+    Gas: false,
+    Water: false,
+    Petrol: false,
+  },
   page: 1,
   lastPagination: 0,
   limit: 4,
@@ -20,6 +33,9 @@ const campersSlice = createSlice({
       state.page += 1;
       state.refresh = false;
     },
+    setFilter(state, action) {
+      state.filters[action.payload] = !state.filters[action.payload];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -32,7 +48,7 @@ const campersSlice = createSlice({
           action.payload.total <= state.page * state.limit ? false : true;
         state.lastPagination = state.page;
 
-        if (state.refresh) state.campers = [];
+        if (state.refresh || action.meta.arg.filter) state.campers = [];
         if (action.payload.items) {
           state.campers.push(...action.payload.items);
         } else {
@@ -41,7 +57,8 @@ const campersSlice = createSlice({
           state.lastPagination = 0;
           state.refresh = true;
         }
-
+        console.dir(action.meta.arg.filter);
+        // console.dir(state.campers);
         state.loading = false;
         state.error = null;
       })
@@ -52,5 +69,5 @@ const campersSlice = createSlice({
   },
 });
 
-export const { loadMore } = campersSlice.actions;
+export const { loadMore, setFilter } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;
