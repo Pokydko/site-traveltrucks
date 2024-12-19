@@ -22,9 +22,9 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.26.0",
     "react-spinners": "^0.14.1",
+    "react-toastify": "^11.0.2",
     "redux": "^5.0.1",
-    "redux-persist": "^6.0.0",
-    "yup": "^1.4.0"
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
