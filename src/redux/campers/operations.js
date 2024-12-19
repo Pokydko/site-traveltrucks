@@ -8,16 +8,17 @@ export const instance = axios.create({
 export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
   async ({ id, filter, page = 1 }, thunkAPI) => {
-    const params = id
-      ? {}
-      : {
-          page,
-          limit: 4,
-          filter,
-        };
-
+    const params =
+      id === undefined
+        ? {
+            page,
+            limit: 4,
+            filter,
+          }
+        : {};
     try {
-      const response = await instance.get(id ? `/${id}` : "", {
+      const camperId = id === undefined ? "" : `/${id}`;
+      const response = await instance.get(camperId, {
         params: params,
         headers: {
           accept: "application/json",

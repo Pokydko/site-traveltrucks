@@ -62,9 +62,9 @@ export default function CamperDetailsPage() {
   return (
     <Container>
       <div className={css.camperDetailsPage}>
-        <Link to={backLinkHref} className={css.goBackLink}>
+        {/* <Link to={backLinkHref} className={css.goBackLink}>
           ← Go back
-        </Link>
+        </Link> */}
         <h1>{chosenCamper.name}</h1>
         <ul className={css.camperGallery}>
           {chosenCamper.gallery.map((foto) => (
