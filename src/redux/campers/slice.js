@@ -4,6 +4,7 @@ import { fetchCampers } from "./operations";
 const INITIAL_STATE = {
   campers: [],
   page: 1,
+  lastPagination: 0,
   limit: 4,
   refresh: true,
   isThereMore: false,
@@ -29,6 +30,7 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isThereMore =
           action.payload.total <= state.page * state.limit ? false : true;
+        state.lastPagination = state.page;
 
         if (state.refresh) state.campers = [];
         if (action.payload.items) {
@@ -41,7 +43,6 @@ const campersSlice = createSlice({
 
         state.loading = false;
         state.error = null;
-        console.dir(action.payload);
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;

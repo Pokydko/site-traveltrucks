@@ -8,19 +8,17 @@ import css from "./CatalogList.module.css";
 
 export default function CatalogList() {
   const dispatch = useDispatch();
-  const { loading, error, page, isThereMore } = useSelector(
+  const { loading, error, page, isThereMore, lastPagination } = useSelector(
     (state) => state.campers
   );
   const campers = useSelector(selectCampers);
   const handlePage = () => {
-    console.log("click");
     dispatch(loadMore());
   };
 
   useEffect(() => {
-    console.log(page);
-    dispatch(fetchCampers({ page }));
-  }, [dispatch, page]);
+    if (page !== lastPagination) dispatch(fetchCampers({ page }));
+  }, [dispatch, page, lastPagination]);
 
   if (!Array.isArray(campers)) return;
 
