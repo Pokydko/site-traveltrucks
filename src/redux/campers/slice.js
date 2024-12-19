@@ -3,6 +3,10 @@ import { fetchCampers } from "./operations";
 
 const INITIAL_STATE = {
   campers: [],
+  page: 1,
+  limit: 4,
+  refresh: true,
+  isThereMore: false,
   loading: false,
   error: null,
 };
@@ -10,7 +14,12 @@ const INITIAL_STATE = {
 const campersSlice = createSlice({
   name: "campers",
   initialState: INITIAL_STATE,
-  reducers: {},
+  reducers: {
+    loadMore(state) {
+      state.page += 1;
+      state.refresh = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCampers.pending, (state) => {
@@ -18,9 +27,21 @@ const campersSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
-        state.campers = action.payload;
+        state.isThereMore =
+          action.payload.total <= state.page * state.limit ? false : true;
+
+        if (state.refresh) state.campers = [];
+        if (action.payload.items) {
+          state.campers.push(...action.payload.items);
+        } else {
+          state.campers = [action.payload];
+          state.page = 1;
+          state.refresh = true;
+        }
+
         state.loading = false;
         state.error = null;
+        console.dir(action.payload);
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;
@@ -29,5 +50,5 @@ const campersSlice = createSlice({
   },
 });
 
-export const {} = campersSlice.actions;
+export const { loadMore } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

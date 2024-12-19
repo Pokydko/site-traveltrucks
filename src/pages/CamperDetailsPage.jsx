@@ -1,6 +1,6 @@
 import Container from "../components/Container/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchCampers } from "../redux/campers/operations";
 import { selectCampers } from "../redux/campers/selectors";
@@ -16,12 +16,16 @@ export default function CamperDetailsPage() {
   const campers = useSelector(selectCampers);
   const chosenCamper = campers?.find((camper) => camper.id === id);
 
-  if (!chosenCamper && !loading && !error) {
-    dispatch(fetchCampers({ id: Number(id) }));
-  }
-  const [location] = useState(useLocation());
-  const backLinkHref = location.state ?? "/catalog";
+  useEffect(() => {
+    if (!chosenCamper && !loading && !error) {
+      dispatch(fetchCampers({ id: Number(id) }));
+    }
+  }, [dispatch, id, loading, error, chosenCamper]);
+
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/catalog";
   const [modalContent, setModalContent] = useState(false);
+
   if (error) {
     return (
       <Container>
@@ -32,8 +36,21 @@ export default function CamperDetailsPage() {
       </Container>
     );
   }
+
+  if (loading) {
+    return (
+      <Container>
+        <p>Loading camper details...</p>
+      </Container>
+    );
+  }
+
   if (!chosenCamper) {
-    return;
+    return (
+      <Container>
+        <p>Camper with ID {id} not found.</p>
+      </Container>
+    );
   }
 
   const handleClick = (foto) => {
@@ -45,6 +62,9 @@ export default function CamperDetailsPage() {
   return (
     <Container>
       <div className={css.camperDetailsPage}>
+        <Link to={backLinkHref} className={css.goBackLink}>
+          ← Go back
+        </Link>
         <h1>{chosenCamper.name}</h1>
         <ul className={css.camperGallery}>
           {chosenCamper.gallery.map((foto) => (

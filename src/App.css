@@ -80,8 +80,11 @@ button {
   border: 1px solid #dadde1;
   background-color: #fff;
   color: #101828;
+  transition: border 250ms ease-in-out;
 }
-.btnWhite:hover {
+.btnWhite:hover,
+.btnWhite:focus {
   border: 1px solid #d84343;
   background-color: #fff;
+  color: #101828;
 }
