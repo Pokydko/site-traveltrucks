@@ -57,8 +57,6 @@ const campersSlice = createSlice({
           state.lastPagination = 0;
           state.refresh = true;
         }
-        console.dir(action.meta.arg.filter);
-        // console.dir(state.campers);
         state.loading = false;
         state.error = null;
       })

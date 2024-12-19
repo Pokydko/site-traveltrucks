@@ -16,12 +16,16 @@ export default function Filters() {
 
   return (
     <div className={css.filters}>
-      <p>Location</p>
-      <p>Filters</p>
-      <h2>Vehicle equipment</h2>
+      <p className={css.locationTitle}>Location</p>
+      <input className={css.locationInput} type="text" />
+      <p className={css.filtersTitle}>Filters</p>
+      <h2 className={css.equipmentTitle}>Vehicle equipment</h2>
       <VehicleEquipment camper={optionsToShow} filters={filters} />
-      <h2>Vehicle type</h2>
-      <button type="button" onClick={handleFilterChange}>
+      <h2 className={`${css.equipmentTitle} ${css.marginForEquipment}`}>
+        Vehicle type
+      </h2>
+      <div className={css.vehicleTypeList}></div>
+      <button type="button" className="btn" onClick={handleFilterChange}>
         Search
       </button>
     </div>
