@@ -18,7 +18,7 @@ export default function CamperDetailsPage() {
 
   useEffect(() => {
     if (!chosenCamper && !loading && !error) {
-      dispatch(fetchCampers({ id: Number(id) }));
+      dispatch(fetchCampers({ id: id }));
     }
   }, [dispatch, id, loading, error, chosenCamper]);
 
@@ -59,6 +59,10 @@ export default function CamperDetailsPage() {
     });
   };
 
+  const isCurrent = (path) => {
+    return location.pathname.endsWith(path) ? css.current : "";
+  };
+
   return (
     <Container>
       <div className={css.camperDetailsPage}>
@@ -83,8 +87,12 @@ export default function CamperDetailsPage() {
         </ul>
         <p className={css.descriptionNearGallery}>{chosenCamper.description}</p>
         <div className={css.additionInfo}>
-          <Link to={`features`}>Features</Link>
-          <Link to={`reviews`}>Reviews</Link>
+          <Link to={`features`} className={isCurrent("features")}>
+            Features
+          </Link>
+          <Link to={`reviews`} className={isCurrent("reviews")}>
+            Reviews
+          </Link>
         </div>
         <div className={css.boxAndForm}>
           <div className={css.box}>

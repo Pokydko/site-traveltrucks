@@ -7,8 +7,7 @@ export const instance = axios.create({
 
 export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
-  async ({ id, filter, page = 1 }, thunkAPI) => {
-    // Фільтри мають бути тільки для властивостей зі значенням true
+  async ({ id, filter, page }, thunkAPI) => {
     const filters = filter
       ? Object.fromEntries(
           Object.entries(filter).filter(([key, value]) => value === true)
@@ -18,7 +17,7 @@ export const fetchCampers = createAsyncThunk(
     const params = {
       page,
       limit: 4,
-      ...filters, // додаємо фільтри в запит
+      ...filters,
     };
 
     try {

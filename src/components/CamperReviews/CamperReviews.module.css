@@ -1,0 +1,38 @@
+.literalAvatar {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  background-color: #f2f4f7;
+  color: #e44848;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.reviewerinfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.nameReviewer {
+  font-weight: 500;
+}
+
+.commentStyles {
+  margin-bottom: 44px;
+  color: #475467;
+}
+
+.starSvg {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  fill: #ffc531;
+}
+.starSvgGray {
+  fill: #f2f4f7;
+}

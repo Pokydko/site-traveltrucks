@@ -3,16 +3,12 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import Navigation from "./components/Navigation/Navigation";
+import CamperFeatures from "./components/CamperFeatures/CamperFeatures";
+import CamperReviews from "./components/CamperReviews/CamperReviews";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const CamperDetailsPage = lazy(() => import("./pages/CamperDetailsPage"));
-const CamperFeatures = lazy(
-  () => import("./components/CamperFeatures/CamperFeatures")
-);
-const CamperReviews = lazy(
-  () => import("./components/CamperReviews/CamperReviews")
-);
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 export default function App() {
