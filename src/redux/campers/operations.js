@@ -8,18 +8,18 @@ export const instance = axios.create({
 export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
   async ({ id, filter, page = 1 }, thunkAPI) => {
-    const params =
-      id === undefined
-        ? {
-            page,
-            limit: 4,
-          }
-        : {};
-    if (filter)
-      (params.filter = Object.fromEntries(
-        Object.entries(filter).filter(([key, value]) => value)
-      )),
-        console.dir(params);
+    // Фільтри мають бути тільки для властивостей зі значенням true
+    const filters = filter
+      ? Object.fromEntries(
+          Object.entries(filter).filter(([key, value]) => value === true)
+        )
+      : {};
+
+    const params = {
+      page,
+      limit: 4,
+      ...filters, // додаємо фільтри в запит
+    };
 
     try {
       const camperId = id === undefined ? "" : `/${id}`;
