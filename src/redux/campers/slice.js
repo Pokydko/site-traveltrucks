@@ -38,6 +38,7 @@ const campersSlice = createSlice({
         } else {
           state.campers = [action.payload];
           state.page = 1;
+          state.lastPagination = 0;
           state.refresh = true;
         }
 
