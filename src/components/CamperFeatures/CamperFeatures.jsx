@@ -12,20 +12,32 @@ export default function CamperFeatures() {
   return (
     <div className={css.featuresBox}>
       <VehicleEquipment camper={chosenCamper} />
-      <h2>Vehicle details</h2>
-      <div>
-        <span>Form</span>
-        <span></span>
-        <span>Length</span>
-        <span></span>
-        <span>Width</span>
-        <span></span>
-        <span>Height</span>
-        <span></span>
-        <span>Tank</span>
-        <span></span>
-        <span>Consumption</span>
-        <span></span>
+      <div className={css.detailsBox}>
+        <h2 className={css.title}>Vehicle details</h2>
+        <div className={css.details}>
+          <span>Form</span>
+          <span>{chosenCamper.form ?? "n/a"}</span>
+        </div>
+        <div className={css.details}>
+          <span>Length</span>
+          <span>{chosenCamper.length ?? "n/a"}</span>
+        </div>
+        <div className={css.details}>
+          <span>Width</span>
+          <span>{chosenCamper.width ?? "n/a"}</span>
+        </div>
+        <div className={css.details}>
+          <span>Height</span>
+          <span>{chosenCamper.height ?? "n/a"}</span>
+        </div>
+        <div className={css.details}>
+          <span>Tank</span>
+          <span>{chosenCamper.tank ?? "n/a"}</span>
+        </div>
+        <div className={css.details}>
+          <span>Consumption</span>
+          <span>{chosenCamper.consumption ?? "n/a"}</span>
+        </div>
       </div>
     </div>
   );

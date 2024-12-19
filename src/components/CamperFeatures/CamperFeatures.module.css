@@ -3,9 +3,30 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 631px;
+  width: 100%;
   height: 588px;
-  padding: 44px 80px;
+  padding: 44px 52px;
   border-radius: 10px;
   background-color: #f7f7f7;
+}
+
+.detailsBox {
+  width: 100%;
+  max-width: 527px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #dadde1;
+  color: #101828;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
 }
