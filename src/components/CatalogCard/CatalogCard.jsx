@@ -62,9 +62,12 @@ export default function CatalogCard({
           camperId={id}
           scrollbar={true}
         />
-        <NavLink to={`/catalog/${id}/features`} className="btn">
+        {/* <NavLink to={`/catalog/${id}/features`} className="btn">
           Show more
-        </NavLink>
+        </NavLink> */}
+        <a className="btn" href={`/catalog/${id}/features`} target="_blank">
+          Show more
+        </a>
       </div>
     </div>
   );
