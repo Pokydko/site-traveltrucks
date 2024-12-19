@@ -1,0 +1,12 @@
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.bookingForm input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

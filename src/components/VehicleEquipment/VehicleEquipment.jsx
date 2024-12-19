@@ -1,6 +1,10 @@
 import css from "./VehicleEquipment.module.css";
 
-export default function VehicleEquipment({ equipment, camperId }) {
+export default function VehicleEquipment({
+  equipment,
+  camperId,
+  scrollbar = false,
+}) {
   const decipher = {
     Automatic: "Automatic transmission",
     engine: "Engine",
@@ -17,11 +21,11 @@ export default function VehicleEquipment({ equipment, camperId }) {
   };
 
   return (
-    <ul className={`${css.equipmentList} ${css.scrollbar}`}>
+    <ul className={`${css.equipmentList} ${scrollbar && css.scrollbar}`}>
       {equipment.map((option) => (
         <li key={`${camperId}${option}`} className={css.equipmentItem}>
           <svg className={css.equipmentSvg}>
-            <title>{decipher[option]}</title>
+            <title>{decipher[option] || { option }}</title>
             <use href={`/sprite.svg#icon-${option}`}></use>
           </svg>
           {option}

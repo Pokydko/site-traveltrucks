@@ -1,11 +1,12 @@
 .heroBg {
   display: flex;
-  align-items: center;
   justify-content: start;
+  align-items: center;
   max-width: 1440px;
-  height: 100vh;
+  height: calc(100vh - 72px);
   max-height: 696px;
   margin: 0 auto;
+  margin-top: 72px;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("../../img/hero-bg.jpg");
   background-color: gray;

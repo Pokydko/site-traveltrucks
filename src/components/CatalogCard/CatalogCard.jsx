@@ -1,8 +1,9 @@
 import css from "./CatalogCard.module.css";
 import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
+import { NavLink } from "react-router-dom";
 
 export default function CatalogCard({
-  camper: { name, description, gallery, price, rating, reviews, location },
+  camper: { id, name, description, gallery, price, rating, reviews, location },
   camper,
 }) {
   const formatLocation = (string) => {
@@ -56,8 +57,14 @@ export default function CatalogCard({
           {formatLocation(location)}
         </div>
         <p className={css.about}>{description.slice(0, 61)}...</p>
-        <VehicleEquipment equipment={getOptions(camper)} camperId={camper.id} />
-        <button className="btn">Show more</button>
+        <VehicleEquipment
+          equipment={getOptions(camper)}
+          camperId={id}
+          scrollbar={true}
+        />
+        <NavLink to={`/catalog/${id}/features`} className="btn">
+          Show more
+        </NavLink>
       </div>
     </div>
   );

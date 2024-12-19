@@ -7,6 +7,12 @@ import Navigation from "./components/Navigation/Navigation";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const CamperDetailsPage = lazy(() => import("./pages/CamperDetailsPage"));
+const CamperFeatures = lazy(
+  () => import("./components/CamperFeatures/CamperFeatures")
+);
+const CamperReviews = lazy(
+  () => import("./components/CamperReviews/CamperReviews")
+);
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 export default function App() {
@@ -38,7 +44,18 @@ export default function App() {
               path="/catalog/:id"
               state={location}
               element={<CamperDetailsPage />}
-            ></Route>
+            >
+              <Route
+                path="features"
+                state={location}
+                element={<CamperFeatures />}
+              />
+              <Route
+                path="reviews"
+                state={location}
+                element={<CamperReviews />}
+              />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

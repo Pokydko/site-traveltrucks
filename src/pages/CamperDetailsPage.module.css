@@ -1,0 +1,45 @@
+.camperGallery {
+  display: flex;
+  gap: 3.65%;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.thumbWrp {
+  overflow: hidden;
+  max-width: 405px;
+  border-radius: 10px;
+  aspect-ratio: auto 0.94;
+}
+
+.camperThumb {
+  height: 100%;
+}
+
+.descriptionNearGallery {
+  margin-bottom: 60px;
+  color: #475467;
+}
+
+.additionInfo {
+  display: flex;
+  gap: 40px;
+  height: 48px;
+  margin-bottom: 44px;
+  border-bottom: 1px solid #dadde1;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.boxAndForm {
+  display: flex;
+  gap: 40px;
+}
+
+.box {
+  width: 631px;
+  height: 588px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+}

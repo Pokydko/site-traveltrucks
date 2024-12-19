@@ -1,0 +1,9 @@
+.featuresBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 631px;
+  height: 588px;
+  padding: 44px 80px;
+}

@@ -3,7 +3,6 @@
   flex-wrap: wrap;
   gap: 8px;
   overflow-y: auto;
-  height: 104px;
   margin-bottom: 24px;
 }
 
@@ -30,6 +29,10 @@
 }
 
 /*  */
+.scrollbar {
+  height: 104px;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 20px;
 }
