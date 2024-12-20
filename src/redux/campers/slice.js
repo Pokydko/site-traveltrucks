@@ -4,7 +4,6 @@ import { fetchCampers } from "./operations";
 const INITIAL_STATE = {
   campers: [],
   filters: {
-    Automatic: false,
     AC: false,
     Bathroom: false,
     Kitchen: false,
@@ -14,7 +13,15 @@ const INITIAL_STATE = {
     Microwave: false,
     Gas: false,
     Water: false,
+
+    // engine: "diesel", "hybrid" or "petrol"
     Petrol: false,
+    Diesel: false,
+    Hybrid: false,
+
+    // transmission: "automatic" or "manual"
+    Automatic: false,
+    Manual: false,
   },
   page: 1,
   lastPagination: 0,
@@ -34,7 +41,40 @@ const campersSlice = createSlice({
       state.refresh = false;
     },
     setFilter(state, action) {
-      state.filters[action.payload] = !state.filters[action.payload];
+      if (state.filters[action.payload] === true) {
+        state.filters[action.payload] = false;
+        return;
+      }
+      switch (action.payload) {
+        case "Automatic":
+          state.filters.Automatic = true;
+          state.filters.Manual = false;
+          break;
+        case "Manual":
+          state.filters.Manual = true;
+          state.filters.Automatic = false;
+          break;
+
+        case "Petrol":
+          state.filters.Petrol = true;
+          state.filters.Diesel = false;
+          state.filters.Hybrid = false;
+          break;
+        case "Diesel":
+          state.filters.Petrol = false;
+          state.filters.Diesel = true;
+          state.filters.Hybrid = false;
+          break;
+        case "Hybrid":
+          state.filters.Petrol = false;
+          state.filters.Diesel = false;
+          state.filters.Hybrid = true;
+          break;
+
+        default:
+          state.filters[action.payload] = true;
+          break;
+      }
     },
   },
   extraReducers: (builder) => {

@@ -8,16 +8,10 @@ export const instance = axios.create({
 export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
   async ({ id, filter, page }, thunkAPI) => {
-    const filters = filter
-      ? Object.fromEntries(
-          Object.entries(filter).filter(([key, value]) => value === true)
-        )
-      : {};
-
     const params = {
-      page,
+      ...createFilterQuery(filter),
       limit: 4,
-      ...filters,
+      page,
     };
 
     try {
@@ -37,3 +31,20 @@ export const fetchCampers = createAsyncThunk(
     }
   }
 );
+
+function createFilterQuery(filterObj) {
+  return Object.fromEntries(
+    Object.entries(filterObj)
+      .filter(([key, value]) => {
+        return value === true;
+      })
+      .map(([key, value]) => {
+        if (["Automatic", "Manual"].includes(key)) {
+          return ["transmission", key.toLowerCase()];
+        } else if (["Petrol", "Diesel", "Hybrid"].includes(key)) {
+          return ["engine", key.toLowerCase()];
+        }
+        return [key.length === 2 ? key : key.toLowerCase(), value];
+      })
+  );
+}

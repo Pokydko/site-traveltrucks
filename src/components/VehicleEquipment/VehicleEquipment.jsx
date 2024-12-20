@@ -9,18 +9,15 @@ export default function VehicleEquipment({
 }) {
   const dispatch = useDispatch();
   const decipher = {
-    Automatic: "Automatic transmission",
-    Engine: "Engine",
     AC: "Air Conditioning",
-    Bathroom: "Bathroom",
-    Kitchen: "Kitchen",
     TV: "Television",
-    Radio: "Radio",
-    Refrigerator: "Refrigerator",
-    Microwave: "Microwave",
     Gas: "Gas System",
-    Petrol: "Petrol System",
     Water: "Water System",
+    Automatic: "Automatic transmission",
+    Manual: "Manual transmission",
+    Petrol: "Petrol System",
+    Diesel: "Diesel System",
+    Hybrid: "Hybrid System",
   };
   const usingFilters = Object.keys(filters).length !== 0;
 
@@ -48,7 +45,7 @@ export default function VehicleEquipment({
           className={`${usingFilters ? css.filtersStylesItem : css.equipmentItem} ${filters[option] && css.active}`}
         >
           <svg className={css.equipmentSvg}>
-            <title>{decipher[option] || { option }}</title>
+            <title>{decipher[option] || option}</title>
             <use href={`/sprite.svg#icon-${option}`}></use>
           </svg>
           {option}
