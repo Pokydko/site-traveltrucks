@@ -24,7 +24,6 @@ const INITIAL_STATE = {
     Manual: false,
   },
   page: 1,
-  lastPagination: 0,
   limit: 4,
   refresh: true,
   isThereMore: false,
@@ -79,6 +78,15 @@ const campersSlice = createSlice({
           break;
       }
     },
+    initializeFilters(state, action) {
+      const filtersToInitialize = action.payload;
+
+      Object.entries(filtersToInitialize).forEach(([key, value]) => {
+        if (key in state.filters) {
+          state.filters[key] = value === "true" || value === true;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,16 +97,13 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isThereMore =
           action.payload.total <= state.page * state.limit ? false : true;
-        state.lastPagination = state.page;
 
-        // if (action.meta.arg.filter) state.campers = [];
         if (state.refresh) state.campers = [];
         if (action.payload.items) {
           state.campers.push(...action.payload.items);
         } else {
           state.campers = [action.payload];
           state.page = 1;
-          state.lastPagination = 0;
           state.refresh = true;
         }
         state.loading = false;
@@ -111,5 +116,6 @@ const campersSlice = createSlice({
   },
 });
 
-export const { loadMore, setFilter, refreshCampers } = campersSlice.actions;
+export const { loadMore, setFilter, refreshCampers, initializeFilters } =
+  campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

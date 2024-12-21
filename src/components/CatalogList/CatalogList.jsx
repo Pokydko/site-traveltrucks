@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/campers/operations";
-import { loadMore } from "../../redux/campers/slice.js";
+import { loadMore, initializeFilters } from "../../redux/campers/slice.js";
 import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
 import css from "./CatalogList.module.css";
@@ -10,18 +10,20 @@ import { useLocation } from "react-router-dom";
 export default function CatalogList() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { page, isThereMore, lastPagination, filters } = useSelector(
-    (state) => state.campers
-  );
+  const { page, isThereMore, filters } = useSelector((state) => state.campers);
   const campers = useSelector(selectCampers);
   const handlePage = () => {
     dispatch(loadMore());
   };
 
   useEffect(() => {
-    if (page !== lastPagination)
-      dispatch(fetchCampers({ search: location.search, filters, page }));
-  }, [dispatch, page, lastPagination, filters, location]);
+    const params = Object.fromEntries(new URLSearchParams(location.search));
+    dispatch(initializeFilters(params));
+  }, [dispatch, location.search]);
+
+  useEffect(() => {
+    dispatch(fetchCampers({ filters, page }));
+  }, [dispatch, filters, page]);
 
   if (!Array.isArray(campers)) return;
 
