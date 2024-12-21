@@ -7,6 +7,7 @@ import {
 } from "../../redux/campers/operations";
 import { refreshCampers } from "../../redux/campers/slice";
 import { useSearchParams } from "react-router-dom";
+import { useRef } from "react";
 
 export default function Filters() {
   const { limit, page, filters, camperForms } = useSelector(
@@ -21,16 +22,26 @@ export default function Filters() {
   const handleFilterChange = () => {
     const queryFilters = createFilterQuery(filters);
     const queryForm = createFilterQuery(camperForms);
+    if (inputLocation.current) queryFilters.location = inputLocation.current;
     setSearchParams({ ...queryFilters, ...queryForm }, { replace: true });
     dispatch(refreshCampers());
     dispatch(fetchCampers({ limit, page }));
+  };
+  let inputLocation = useRef("");
+  const handleInputChange = (e) => {
+    inputLocation.current = e.target.value.trim();
   };
 
   return (
     <div className={css.filters}>
       <p className={css.locationTitle}>Location</p>
       <div className={css.locationInputWrapper}>
-        <input className={css.locationInput} type="text" placeholder="City" />
+        <input
+          className={css.locationInput}
+          type="text"
+          placeholder="City"
+          onChange={handleInputChange}
+        />
         <svg className={css.locationIco}>
           <title>Location</title>
           <use href="/sprite.svg#icon-location"></use>

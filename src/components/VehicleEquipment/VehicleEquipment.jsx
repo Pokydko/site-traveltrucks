@@ -53,9 +53,14 @@ export default function VehicleEquipment({
             <title>{decipher[option] || option}</title>
             <use href={`/sprite.svg#icon-${option}`}></use>
           </svg>
-          {option}
+          {named(option)}
         </li>
       ))}
     </ul>
   );
+}
+function named(option) {
+  if (option === "FullyIntegrated") return "Fully Integrated";
+  if (option === "PanelTruck") return "Van";
+  return option;
 }

@@ -49,10 +49,12 @@
   padding: 16px 18px;
   border: 1px solid #dadde1;
   border-radius: 12px;
+  text-align: center;
   cursor: pointer;
   mix-blend-mode: multiply;
 }
 .filtersStylesItem .equipmentSvg {
+  flex-shrink: 0;
   width: 32px;
   height: 32px;
   margin-right: 0;
