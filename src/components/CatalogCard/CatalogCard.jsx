@@ -10,7 +10,7 @@ export default function CatalogCard({
   if (!camper) return null;
   return (
     <div className={css.card}>
-      <PriceLike price={price} />
+      <PriceLike price={price} id={id} />
       <div className={css.thumbWrp}>
         <img
           src={gallery[0].thumb}

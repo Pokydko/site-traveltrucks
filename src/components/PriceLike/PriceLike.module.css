@@ -16,8 +16,10 @@
   width: 24px;
   height: 24px;
   margin-left: 12px;
-  /* fill: #e44848; */
 }
 .heartSvg:hover {
   fill: #ffc531;
+}
+.inFavorites {
+  fill: #e44848;
 }

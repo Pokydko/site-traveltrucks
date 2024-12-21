@@ -1,6 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCampers } from "./operations";
 
+let campersFromStorage;
+try {
+  campersFromStorage = JSON.parse(localStorage.getItem("favoriteCampers"));
+  campersFromStorage = Array.isArray(campersFromStorage)
+    ? campersFromStorage
+    : [];
+} catch (error) {
+  campersFromStorage = [];
+}
+
 const INITIAL_STATE = {
   campers: [],
   filters: {
@@ -29,6 +39,7 @@ const INITIAL_STATE = {
     FullyIntegrated: false,
     Alcove: false,
   },
+  favorites: campersFromStorage,
   page: 1,
   ready: false,
   limit: 3,
@@ -45,6 +56,16 @@ const campersSlice = createSlice({
     loadMore(state) {
       state.page += 1;
       state.refresh = false;
+    },
+    switchFavorites(state, action) {
+      console.dir(action.payload);
+      console.dir(state.favorites);
+      const index = state.favorites.indexOf(action.payload);
+      if (index === -1) {
+        state.favorites.push(action.payload);
+      } else {
+        state.favorites = state.favorites.filter((_, i) => i !== index);
+      }
     },
     setReady(state) {
       state.ready = true;
@@ -193,5 +214,6 @@ export const {
   refreshCampers,
   initializeFilters,
   setReady,
+  switchFavorites,
 } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

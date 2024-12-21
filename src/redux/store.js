@@ -30,4 +30,10 @@ export const store = configureStore({
     }),
 });
 
+store.subscribe(() => {
+  const { campers } = store.getState();
+  localStorage.setItem("favoriteCampers", JSON.stringify(campers.favorites));
+  // localStorage.setItem("favoriteCampers", JSON.stringify([]));
+});
+
 export const persistor = persistStore(store);
