@@ -1,13 +1,14 @@
 {
   "name": "traveltrucks-campers-app",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.9.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
