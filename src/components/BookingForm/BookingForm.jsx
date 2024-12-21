@@ -1,7 +1,6 @@
 import css from "./BookingForm.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 
 export default function BookingForm({ id }) {
   const handleSubmit = (e) => {
@@ -12,6 +11,7 @@ export default function BookingForm({ id }) {
       email: email.value.trim(),
       date: date.value,
       comment: comment.value.trim(),
+      camperId: id,
     };
 
     if (!bookingData.name) {
@@ -44,6 +44,8 @@ export default function BookingForm({ id }) {
     }
 
     try {
+      // import axios from "axios";
+      //
       // axios.post(
       //   "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers",
       //   bookingData

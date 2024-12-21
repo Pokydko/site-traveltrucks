@@ -33,7 +33,7 @@ export default function CamperDetailsPage() {
         <Link to={backLinkHref} className={css.goBackLink}>
           ← Go back
         </Link>
-        <p>Can't find camper with ID {id}.</p>
+        <p>Can&#39;t find camper with ID {id}.</p>
       </Container>
     );
   }

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import css from "./NameRatingLocation.module.css";
 
 export default function NameRatingLocation({
@@ -5,6 +6,7 @@ export default function NameRatingLocation({
   rating,
   reviews,
   location,
+  id = null,
 }) {
   const formatLocation = (string) => {
     const [country, city] = string.split(",");
@@ -18,7 +20,9 @@ export default function NameRatingLocation({
   return (
     <div className={css.cardInfo}>
       <div className={css.titleWithPrice}>
-        <h2>{buildName()}</h2>
+        <NavLink to={`${id ? `/catalog/${id}/features` : "/catalog"}`}>
+          <h2>{buildName()}</h2>
+        </NavLink>
       </div>
       <div className={css.ratingLocation}>
         <svg className={css.starSvg}>

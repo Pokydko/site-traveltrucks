@@ -23,13 +23,16 @@ export default function CatalogCard({
           rating={camper.rating}
           reviews={camper.reviews}
           location={camper.location}
+          id={camper.id}
         />
         <p className={css.about}>{description.slice(0, 61)}...</p>
         <VehicleEquipment camper={camper} scrollbar={true} />
-        {/* <NavLink to={`/catalog/${id}/features`} className="btn">
-          Show more
-        </NavLink> */}
-        <a className="btn" href={`/catalog/${id}/features`} target="_blank">
+        <a
+          className="btn"
+          href={`/catalog/${id}/features`}
+          target="_blank"
+          rel="noreferrer"
+        >
           Show more
         </a>
       </div>
