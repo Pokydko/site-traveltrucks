@@ -23,7 +23,7 @@ const INITIAL_STATE = {
     Automatic: false,
     Manual: false,
   },
-  page: 1,
+  page: 0,
   limit: 4,
   refresh: true,
   isThereMore: false,
@@ -108,6 +108,7 @@ const campersSlice = createSlice({
         } else if (formattedKey in state.filters) {
           state.filters[formattedKey] = value === "true" || value === true;
         }
+        state.page = 1;
       });
     },
   },
@@ -135,6 +136,7 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.campers = [];
       });
   },
 });

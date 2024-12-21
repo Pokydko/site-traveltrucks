@@ -38,7 +38,9 @@ export default function CatalogList() {
   }, [dispatch, location.search]);
 
   useEffect(() => {
-    dispatch(fetchCampers({ filters, page }));
+    if (page > 0) {
+      dispatch(fetchCampers({ filters, page }));
+    }
   }, [dispatch, filters, page]);
 
   if (campers.length === 0)
