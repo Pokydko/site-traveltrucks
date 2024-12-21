@@ -53,6 +53,8 @@
   mix-blend-mode: multiply;
 }
 .filtersStylesItem .equipmentSvg {
+  width: 32px;
+  height: 32px;
   margin-right: 0;
 }
 .active {

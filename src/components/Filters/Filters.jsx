@@ -27,7 +27,13 @@ export default function Filters() {
   return (
     <div className={css.filters}>
       <p className={css.locationTitle}>Location</p>
-      <input className={css.locationInput} type="text" />
+      <div className={css.locationInputWrapper}>
+        <input className={css.locationInput} type="text" placeholder="City" />
+        <svg className={css.locationIco}>
+          <title>Location</title>
+          <use href="/sprite.svg#icon-location"></use>
+        </svg>
+      </div>
       <p className={css.filtersTitle}>Filters</p>
       <h2 className={css.equipmentTitle}>Vehicle equipment</h2>
       <VehicleEquipment camper={optionsToShow} filters={filters} />
