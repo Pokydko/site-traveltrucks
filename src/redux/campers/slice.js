@@ -57,22 +57,23 @@ const campersSlice = createSlice({
       if (state.filters[action.payload] === true) {
         state.filters[action.payload] = false;
         return;
-      } else if (state.camperForms[action.payload] === true) {
+      }
+      if (state.camperForms[action.payload] === true) {
         state.camperForms[action.payload] = false;
         return;
       }
       switch (action.payload) {
-        case "panelTruck":
+        case "PanelTruck":
           state.camperForms.PanelTruck = true;
           state.camperForms.Alcove = false;
           state.camperForms.FullyIntegrated = false;
           break;
-        case "alcove":
+        case "Alcove":
           state.camperForms.PanelTruck = false;
           state.camperForms.Alcove = true;
           state.camperForms.FullyIntegrated = false;
           break;
-        case "fullyIntegrated":
+        case "FullyIntegrated":
           state.camperForms.PanelTruck = false;
           state.camperForms.Alcove = false;
           state.camperForms.FullyIntegrated = true;
@@ -104,7 +105,7 @@ const campersSlice = createSlice({
           break;
 
         default:
-          state.filters[action.payload] = true;
+          if (!state.camperForms) state.filters[action.payload] = true;
           break;
       }
     },
