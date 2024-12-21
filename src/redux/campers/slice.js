@@ -105,7 +105,8 @@ const campersSlice = createSlice({
           break;
 
         default:
-          if (!state.camperForms) state.filters[action.payload] = true;
+          if (!state.camperForms[action.payload])
+            state.filters[action.payload] = true;
           break;
       }
     },
