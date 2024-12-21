@@ -41,7 +41,13 @@ export default function CatalogList() {
     dispatch(fetchCampers({ filters, page }));
   }, [dispatch, filters, page]);
 
-  if (!Array.isArray(campers)) return null;
+  if (campers.length === 0)
+    return (
+      <div className={css.notFoundCampers}>
+        Unfortunately, no camper has been found that would meet all the
+        requirements at the same time.
+      </div>
+    );
 
   return (
     <div className={css.campersLoad}>

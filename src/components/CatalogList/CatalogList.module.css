@@ -9,3 +9,9 @@
   max-width: 888px;
   text-align: center;
 }
+
+.notFoundCampers {
+  width: 600px;
+  margin: 0 auto;
+  font-size: 22px;
+}
