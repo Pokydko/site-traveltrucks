@@ -18,7 +18,7 @@ export default function Filters() {
   const [, setSearchParams] = useSearchParams();
 
   const handleFilterChange = () => {
-    setSearchParams(createFilterQuery(filters));
+    setSearchParams(createFilterQuery(filters), { replace: true });
 
     dispatch(refreshCampers());
     dispatch(fetchCampers({ filters, limit, page }));
