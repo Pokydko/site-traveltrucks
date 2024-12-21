@@ -1,20 +1,36 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCampers } from "../../redux/campers/operations";
+import {
+  fetchCampers,
+  createFilterQuery,
+} from "../../redux/campers/operations";
 import { loadMore, initializeFilters } from "../../redux/campers/slice.js";
 import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
 import css from "./CatalogList.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CatalogList() {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { page, isThereMore, filters } = useSelector((state) => state.campers);
   const campers = useSelector(selectCampers);
   const handlePage = () => {
     dispatch(loadMore());
   };
+
+  useEffect(() => {
+    const filterQuery = createFilterQuery(filters);
+    const searchParams = new URLSearchParams(filterQuery);
+    navigate(
+      {
+        pathname: location.pathname,
+        search: searchParams.toString(),
+      },
+      { replace: true }
+    );
+  }, [filters, location.pathname, navigate]);
 
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(location.search));
