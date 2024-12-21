@@ -1,8 +1,12 @@
 import css from "./Filters.module.css";
 import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCampers } from "../../redux/campers/operations";
+import {
+  fetchCampers,
+  createFilterQuery,
+} from "../../redux/campers/operations";
 import { refreshCampers } from "../../redux/campers/slice";
+import { useSearchParams } from "react-router-dom";
 
 export default function Filters() {
   const { filters, page, limit } = useSelector((state) => state.campers);
@@ -11,7 +15,11 @@ export default function Filters() {
   );
 
   const dispatch = useDispatch();
+  const [, setSearchParams] = useSearchParams();
+
   const handleFilterChange = () => {
+    setSearchParams(createFilterQuery(filters));
+
     dispatch(refreshCampers());
     dispatch(fetchCampers({ filters, limit, page }));
   };

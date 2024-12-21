@@ -33,7 +33,7 @@ export const fetchCampers = createAsyncThunk(
   }
 );
 
-function createFilterQuery(filterObj) {
+export function createFilterQuery(filterObj) {
   return Object.fromEntries(
     Object.entries(filterObj)
       .filter(([, value]) => {
