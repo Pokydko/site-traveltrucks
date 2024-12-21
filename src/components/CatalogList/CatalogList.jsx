@@ -4,7 +4,11 @@ import {
   fetchCampers,
   createFilterQuery,
 } from "../../redux/campers/operations";
-import { loadMore, initializeFilters } from "../../redux/campers/slice.js";
+import {
+  loadMore,
+  refreshCampers,
+  initializeFilters,
+} from "../../redux/campers/slice.js";
 import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
 import css from "./CatalogList.module.css";
@@ -34,13 +38,14 @@ export default function CatalogList() {
 
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(location.search));
+    dispatch(refreshCampers());
     dispatch(initializeFilters(params));
   }, [dispatch, location.search]);
 
   useEffect(() => {
     if (page > 0) {
       dispatch(fetchCampers({ filters, page }));
-    }
+    } else dispatch(loadMore());
   }, [dispatch, filters, page]);
 
   if (campers.length === 0)
