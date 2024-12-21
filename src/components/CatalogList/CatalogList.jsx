@@ -25,7 +25,7 @@ export default function CatalogList() {
     dispatch(fetchCampers({ filters, page }));
   }, [dispatch, filters, page]);
 
-  if (!Array.isArray(campers)) return;
+  if (!Array.isArray(campers)) return null;
 
   return (
     <div className={css.campersLoad}>

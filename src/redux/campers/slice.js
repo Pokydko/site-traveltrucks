@@ -79,11 +79,34 @@ const campersSlice = createSlice({
       }
     },
     initializeFilters(state, action) {
-      const filtersToInitialize = action.payload;
+      Object.entries(action.payload).forEach(([key, value]) => {
+        // Щоб було веселіше - стейт у мене має властивості з великої літери (мені на початку здалося, що так tooltips можна одразу використовувати і виглядатиме по-людськи. Тепер я знаю точно: краще стейт робити або все малими, або так, як з бекенду прийде...)
+        const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
 
-      Object.entries(filtersToInitialize).forEach(([key, value]) => {
-        if (key in state.filters) {
-          state.filters[key] = value === "true" || value === true;
+        if (formattedKey === "Transmission") {
+          if (value === "manual") {
+            state.filters.Manual = true;
+            state.filters.Automatic = false;
+          } else if (value === "automatic") {
+            state.filters.Automatic = true;
+            state.filters.Manual = false;
+          }
+        } else if (formattedKey === "Engine") {
+          if (value === "petrol") {
+            state.filters.Petrol = true;
+            state.filters.Diesel = false;
+            state.filters.Hybrid = false;
+          } else if (value === "diesel") {
+            state.filters.Petrol = false;
+            state.filters.Diesel = true;
+            state.filters.Hybrid = false;
+          } else if (value === "hybrid") {
+            state.filters.Petrol = false;
+            state.filters.Diesel = false;
+            state.filters.Hybrid = true;
+          }
+        } else if (formattedKey in state.filters) {
+          state.filters[formattedKey] = value === "true" || value === true;
         }
       });
     },
