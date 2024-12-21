@@ -2,16 +2,18 @@ import css from "./Filters.module.css";
 import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/campers/operations";
+import { refreshCampers } from "../../redux/campers/slice";
 
 export default function Filters() {
-  const { filters } = useSelector((state) => state.campers);
+  const { filters, page, limit } = useSelector((state) => state.campers);
   const optionsToShow = Object.fromEntries(
     Object.keys(filters).map((key) => [key, true])
   );
 
   const dispatch = useDispatch();
   const handleFilterChange = () => {
-    dispatch(fetchCampers({ filter: filters }));
+    dispatch(refreshCampers());
+    dispatch(fetchCampers({ filters, limit, page }));
   };
 
   return (

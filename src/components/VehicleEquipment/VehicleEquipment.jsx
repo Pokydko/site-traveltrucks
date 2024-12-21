@@ -22,13 +22,15 @@ export default function VehicleEquipment({
   const usingFilters = Object.keys(filters).length !== 0;
 
   const getOptions = (obj) => {
-    const capitalizeFirstLetter = (arr) =>
-      arr.map((item) => item.charAt(0).toUpperCase() + item.slice(1));
-
     const options = Object.keys(obj).filter((key) => obj[key] === true);
-    if (!obj.gas && !usingFilters) options.push("Petrol");
-    if (obj.transmission === "automatic") options.push("Automatic");
-    return capitalizeFirstLetter(options);
+    if (!usingFilters) {
+      options.push(String(obj.transmission));
+      options.push(String(obj.engine));
+    }
+    const optionsCapitalized = options.map(
+      (item) => item.charAt(0).toUpperCase() + item.slice(1)
+    );
+    return optionsCapitalized;
   };
   const equipment = getOptions(camper);
 

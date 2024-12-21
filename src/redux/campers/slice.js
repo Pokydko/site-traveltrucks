@@ -40,6 +40,9 @@ const campersSlice = createSlice({
       state.page += 1;
       state.refresh = false;
     },
+    refreshCampers(state) {
+      state.campers = [];
+    },
     setFilter(state, action) {
       if (state.filters[action.payload] === true) {
         state.filters[action.payload] = false;
@@ -88,7 +91,8 @@ const campersSlice = createSlice({
           action.payload.total <= state.page * state.limit ? false : true;
         state.lastPagination = state.page;
 
-        if (state.refresh || action.meta.arg.filter) state.campers = [];
+        // if (action.meta.arg.filter) state.campers = [];
+        if (state.refresh) state.campers = [];
         if (action.payload.items) {
           state.campers.push(...action.payload.items);
         } else {
@@ -107,5 +111,5 @@ const campersSlice = createSlice({
   },
 });
 
-export const { loadMore, setFilter } = campersSlice.actions;
+export const { loadMore, setFilter, refreshCampers } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

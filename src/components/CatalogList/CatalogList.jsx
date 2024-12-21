@@ -8,7 +8,7 @@ import css from "./CatalogList.module.css";
 
 export default function CatalogList() {
   const dispatch = useDispatch();
-  const { loading, error, page, isThereMore, lastPagination } = useSelector(
+  const { page, isThereMore, lastPagination, filters } = useSelector(
     (state) => state.campers
   );
   const campers = useSelector(selectCampers);
@@ -17,8 +17,8 @@ export default function CatalogList() {
   };
 
   useEffect(() => {
-    if (page !== lastPagination) dispatch(fetchCampers({ page }));
-  }, [dispatch, page, lastPagination]);
+    if (page !== lastPagination) dispatch(fetchCampers({ filters, page }));
+  }, [dispatch, page, lastPagination, filters]);
 
   if (!Array.isArray(campers)) return;
 

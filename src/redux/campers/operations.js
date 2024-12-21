@@ -7,17 +7,18 @@ export const instance = axios.create({
 
 export const fetchCampers = createAsyncThunk(
   "campers/fetchCampers",
-  async ({ id, filter, page }, thunkAPI) => {
-    const params = {
-      ...createFilterQuery(filter),
-      limit: 4,
-      page,
-    };
-
+  async ({ id, filters, page, limit = 4 }, thunkAPI) => {
+    const params = id
+      ? {}
+      : {
+          ...createFilterQuery(filters),
+          limit,
+          page,
+        };
     try {
       const camperId = id === undefined ? "" : `/${id}`;
       const response = await instance.get(camperId, {
-        params: params,
+        params,
         headers: {
           accept: "application/json",
         },
@@ -35,7 +36,7 @@ export const fetchCampers = createAsyncThunk(
 function createFilterQuery(filterObj) {
   return Object.fromEntries(
     Object.entries(filterObj)
-      .filter(([key, value]) => {
+      .filter(([, value]) => {
         return value === true;
       })
       .map(([key, value]) => {
