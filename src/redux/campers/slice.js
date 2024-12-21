@@ -23,7 +23,8 @@ const INITIAL_STATE = {
     Automatic: false,
     Manual: false,
   },
-  page: 0,
+  page: 1,
+  ready: false,
   limit: 3,
   refresh: true,
   isThereMore: false,
@@ -38,6 +39,9 @@ const campersSlice = createSlice({
     loadMore(state) {
       state.page += 1;
       state.refresh = false;
+    },
+    setReady(state) {
+      state.ready = true;
     },
     refreshCampers(state) {
       state.campers = [];
@@ -110,6 +114,7 @@ const campersSlice = createSlice({
           state.filters[formattedKey] = value === "true" || value === true;
         }
         state.page = 1;
+        state.ready = true;
       });
     },
   },
@@ -142,6 +147,11 @@ const campersSlice = createSlice({
   },
 });
 
-export const { loadMore, setFilter, refreshCampers, initializeFilters } =
-  campersSlice.actions;
+export const {
+  loadMore,
+  setFilter,
+  refreshCampers,
+  initializeFilters,
+  setReady,
+} = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

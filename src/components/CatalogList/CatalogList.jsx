@@ -8,6 +8,7 @@ import {
   loadMore,
   refreshCampers,
   initializeFilters,
+  setReady,
 } from "../../redux/campers/slice.js";
 import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
@@ -19,7 +20,7 @@ export default function CatalogList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
-  const { page, limit, isThereMore, filters, loading } = useSelector(
+  const { page, limit, isThereMore, filters, ready, loading } = useSelector(
     (state) => state.campers
   );
   const handlePage = () => {
@@ -45,11 +46,13 @@ export default function CatalogList() {
   }, [dispatch, location.search]);
 
   useEffect(() => {
-    if (page > 0) {
+    if (ready) {
       dispatch(fetchCampers({ filters, page }));
-    } else dispatch(loadMore());
-  }, [dispatch, filters, page]);
+    } else dispatch(setReady());
+  }, [dispatch, filters, page, ready]);
 
+  if (loading || !ready)
+    return <div className={css.notFoundCampers}>Loading </div>;
   if (campers.length === 0)
     return (
       <div className={css.notFoundCampers}>
