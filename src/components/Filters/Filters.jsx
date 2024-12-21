@@ -9,19 +9,21 @@ import { refreshCampers } from "../../redux/campers/slice";
 import { useSearchParams } from "react-router-dom";
 
 export default function Filters() {
-  const { filters, page, limit } = useSelector((state) => state.campers);
-  const optionsToShow = Object.fromEntries(
-    Object.keys(filters).map((key) => [key, true])
+  const { limit, page, filters, camperForms } = useSelector(
+    (state) => state.campers
   );
+  const optionsToShow = (obj) =>
+    Object.fromEntries(Object.keys(obj).map((key) => [key, true]));
 
   const dispatch = useDispatch();
   const [, setSearchParams] = useSearchParams();
 
   const handleFilterChange = () => {
-    setSearchParams(createFilterQuery(filters), { replace: true });
-
+    const queryFilters = createFilterQuery(filters);
+    const queryForm = createFilterQuery(camperForms);
+    setSearchParams({ ...queryFilters, ...queryForm }, { replace: true });
     dispatch(refreshCampers());
-    dispatch(fetchCampers({ filters, limit, page }));
+    dispatch(fetchCampers({ limit, page }));
   };
 
   return (
@@ -36,11 +38,16 @@ export default function Filters() {
       </div>
       <p className={css.filtersTitle}>Filters</p>
       <h2 className={css.equipmentTitle}>Vehicle equipment</h2>
-      <VehicleEquipment camper={optionsToShow} filters={filters} />
+      <VehicleEquipment camper={optionsToShow(filters)} filters={filters} />
       <h2 className={`${css.equipmentTitle} ${css.marginForEquipment}`}>
         Vehicle type
       </h2>
-      <div className={css.vehicleTypeList}></div>
+      <div className={css.vehicleForm}>
+        <VehicleEquipment
+          camper={optionsToShow(camperForms)}
+          filters={camperForms}
+        />
+      </div>
       <button type="button" className="btn" onClick={handleFilterChange}>
         Search
       </button>

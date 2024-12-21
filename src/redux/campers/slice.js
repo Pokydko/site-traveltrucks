@@ -23,6 +23,12 @@ const INITIAL_STATE = {
     Automatic: false,
     Manual: false,
   },
+  // form: Van=PanelTruck, Fully Integrated=FullyIntegrated, or Alcove
+  camperForms: {
+    PanelTruck: false,
+    FullyIntegrated: false,
+    Alcove: false,
+  },
   page: 1,
   ready: false,
   limit: 3,
@@ -51,8 +57,27 @@ const campersSlice = createSlice({
       if (state.filters[action.payload] === true) {
         state.filters[action.payload] = false;
         return;
+      } else if (state.camperForms[action.payload] === true) {
+        state.camperForms[action.payload] = false;
+        return;
       }
       switch (action.payload) {
+        case "panelTruck":
+          state.camperForms.PanelTruck = true;
+          state.camperForms.Alcove = false;
+          state.camperForms.FullyIntegrated = false;
+          break;
+        case "alcove":
+          state.camperForms.PanelTruck = false;
+          state.camperForms.Alcove = true;
+          state.camperForms.FullyIntegrated = false;
+          break;
+        case "fullyIntegrated":
+          state.camperForms.PanelTruck = false;
+          state.camperForms.Alcove = false;
+          state.camperForms.FullyIntegrated = true;
+          break;
+
         case "Automatic":
           state.filters.Automatic = true;
           state.filters.Manual = false;
@@ -87,7 +112,6 @@ const campersSlice = createSlice({
       Object.entries(action.payload).forEach(([key, value]) => {
         // Щоб було веселіше - стейт у мене має властивості з великої літери (мені на початку здалося, що так tooltips можна одразу використовувати і виглядатиме по-людськи. Тепер я знаю точно: краще стейт робити або все малими, або так, як з бекенду прийде...)
         const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
-
         if (formattedKey === "Transmission") {
           if (value === "manual") {
             state.filters.Manual = true;
@@ -109,6 +133,20 @@ const campersSlice = createSlice({
             state.filters.Petrol = false;
             state.filters.Diesel = false;
             state.filters.Hybrid = true;
+          }
+        } else if (key === "form") {
+          if (value === "panelTruck") {
+            state.camperForms.PanelTruck = true;
+            state.camperForms.Alcove = false;
+            state.camperForms.FullyIntegrated = false;
+          } else if (value === "alcove") {
+            state.camperForms.PanelTruck = false;
+            state.camperForms.Alcove = true;
+            state.camperForms.FullyIntegrated = false;
+          } else if (value === "fullyIntegrated") {
+            state.camperForms.PanelTruck = false;
+            state.camperForms.Alcove = false;
+            state.camperForms.FullyIntegrated = true;
           }
         } else if (formattedKey in state.filters) {
           state.filters[formattedKey] = value === "true" || value === true;

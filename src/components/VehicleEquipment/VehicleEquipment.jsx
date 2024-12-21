@@ -18,6 +18,8 @@ export default function VehicleEquipment({
     Petrol: "Petrol System",
     Diesel: "Diesel System",
     Hybrid: "Hybrid System",
+    FullyIntegrated: "Fully Integrated",
+    PanelTruck: "Panel Truck",
   };
   const usingFilters = Object.keys(filters).length !== 0;
 
@@ -26,6 +28,7 @@ export default function VehicleEquipment({
     if (!usingFilters) {
       options.push(String(obj.transmission));
       options.push(String(obj.engine));
+      options.push(String(obj.form));
     }
     const optionsCapitalized = options.map(
       (item) => item.charAt(0).toUpperCase() + item.slice(1)

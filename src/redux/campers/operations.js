@@ -41,8 +41,15 @@ export function createFilterQuery(filterObj) {
           return ["transmission", key.toLowerCase()];
         } else if (["Petrol", "Diesel", "Hybrid"].includes(key)) {
           return ["engine", key.toLowerCase()];
+        } else if (["PanelTruck", "FullyIntegrated", "Alcove"].includes(key)) {
+          return ["form", checkForm(key)];
         }
         return [key.length === 2 ? key : key.toLowerCase(), value];
       })
   );
+}
+function checkForm(key) {
+  if (key === "PanelTruck") return "panelTruck";
+  if (key === "FullyIntegrated") return "fullyIntegrated";
+  if (key === "Alcove") return "alcove";
 }
