@@ -18,8 +18,10 @@ export default function CatalogList() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { page, isThereMore, filters } = useSelector((state) => state.campers);
   const campers = useSelector(selectCampers);
+  const { page, limit, isThereMore, filters, loading } = useSelector(
+    (state) => state.campers
+  );
   const handlePage = () => {
     dispatch(loadMore());
   };
@@ -34,7 +36,7 @@ export default function CatalogList() {
       },
       { replace: true }
     );
-  }, [filters, location.pathname, navigate]);
+  }, [filters, page, limit, navigate, location.pathname]);
 
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(location.search));

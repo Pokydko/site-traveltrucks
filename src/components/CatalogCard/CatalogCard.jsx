@@ -7,6 +7,7 @@ export default function CatalogCard({
   camper: { id, description, gallery, price },
   camper,
 }) {
+  if (!camper) return null;
   return (
     <div className={css.card}>
       <PriceLike price={price} />

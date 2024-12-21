@@ -24,7 +24,7 @@ const INITIAL_STATE = {
     Manual: false,
   },
   page: 0,
-  limit: 4,
+  limit: 3,
   refresh: true,
   isThereMore: false,
   loading: false,
@@ -41,6 +41,7 @@ const campersSlice = createSlice({
     },
     refreshCampers(state) {
       state.campers = [];
+      state.refresh = true;
     },
     setFilter(state, action) {
       if (state.filters[action.payload] === true) {
