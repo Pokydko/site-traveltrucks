@@ -9,11 +9,14 @@
   overflow: hidden;
   max-width: 405px;
   border-radius: 10px;
-  aspect-ratio: auto 0.94;
+  aspect-ratio: 0.94;
 }
 
 .camperThumb {
   height: 100%;
+}
+.thumbWrp:nth-child(3) .camperThumb {
+  transform: scale(1.5);
 }
 
 .descriptionNearGallery {
