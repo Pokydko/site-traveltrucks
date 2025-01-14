@@ -1,35 +1,21 @@
 import css from "./Filters.module.css";
 import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCampers,
-  createFilterQuery,
-} from "../../redux/campers/operations";
-import { refreshCampers } from "../../redux/campers/slice";
-import { useSearchParams } from "react-router-dom";
-import { useRef } from "react";
+import { setLocation } from "../../redux/campers/slice";
 
 export default function Filters() {
-  const { limit, page, filters, camperForms } = useSelector(
+  const { campersLocation, filters, camperForms } = useSelector(
     (state) => state.campers
   );
   const optionsToShow = (obj) =>
     Object.fromEntries(Object.keys(obj).map((key) => [key, true]));
 
   const dispatch = useDispatch();
-  const [, setSearchParams] = useSearchParams();
 
-  const handleFilterChange = () => {
-    const queryFilters = createFilterQuery(filters);
-    const queryForm = createFilterQuery(camperForms);
-    if (inputLocation.current) queryFilters.location = inputLocation.current;
-    setSearchParams({ ...queryFilters, ...queryForm }, { replace: true });
-    dispatch(refreshCampers());
-    dispatch(fetchCampers({ limit, page }));
-  };
-  let inputLocation = useRef("");
+  // const handleFilterChange = () => {};
+
   const handleInputChange = (e) => {
-    inputLocation.current = e.target.value.trim();
+    dispatch(setLocation(e.target.value.trim()));
   };
 
   return (
@@ -41,6 +27,7 @@ export default function Filters() {
           type="text"
           placeholder="City"
           onChange={handleInputChange}
+          value={campersLocation}
         />
         <svg className={css.locationIco}>
           <title>Location</title>
@@ -59,9 +46,9 @@ export default function Filters() {
           filters={camperForms}
         />
       </div>
-      <button type="button" className="btn" onClick={handleFilterChange}>
+      {/* <button type="button" className="btn" onClick={handleFilterChange}>
         Search
-      </button>
+      </button> */}
     </div>
   );
 }

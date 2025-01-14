@@ -14,18 +14,37 @@ import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
 import css from "./CatalogList.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function CatalogList() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [, setSearchParams] = useSearchParams();
   const campers = useSelector(selectCampers);
-  const { page, limit, isThereMore, filters, ready, loading } = useSelector(
-    (state) => state.campers
-  );
+  const {
+    page,
+    limit,
+    isThereMore,
+    campersLocation,
+    filters,
+    camperForms,
+    ready,
+    loading,
+  } = useSelector((state) => state.campers);
   const handlePage = () => {
     dispatch(loadMore());
   };
+
+  useEffect(() => {
+    dispatch(refreshCampers());
+  }, [dispatch, campersLocation, filters, camperForms]);
+
+  useEffect(() => {
+    const params = Object.fromEntries(new URLSearchParams(location.search));
+    dispatch(refreshCampers());
+    dispatch(initializeFilters(params));
+  }, [dispatch, location.search]);
 
   useEffect(() => {
     const filterQuery = createFilterQuery(filters);
@@ -37,13 +56,22 @@ export default function CatalogList() {
       },
       { replace: true }
     );
-  }, [filters, page, limit, navigate, location.pathname]);
-
-  useEffect(() => {
-    const params = Object.fromEntries(new URLSearchParams(location.search));
-    dispatch(refreshCampers());
-    dispatch(initializeFilters(params));
-  }, [dispatch, location.search]);
+    const queryForm = createFilterQuery(camperForms);
+    if (campersLocation) filterQuery.location = campersLocation;
+    setSearchParams({ ...filterQuery, ...queryForm }, { replace: true });
+    // if (page === 1) dispatch(refreshCampers());
+    dispatch(fetchCampers({ limit, page }));
+  }, [
+    dispatch,
+    setSearchParams,
+    navigate,
+    campersLocation,
+    filters,
+    camperForms,
+    page,
+    limit,
+    location.pathname,
+  ]);
 
   useEffect(() => {
     if (ready) {
@@ -51,9 +79,7 @@ export default function CatalogList() {
     } else dispatch(setReady());
   }, [dispatch, filters, page, ready]);
 
-  if (loading || !ready)
-    return <div className={css.notFoundCampers}>Loading </div>;
-  if (campers.length === 0)
+  if (!loading && campers.length === 0)
     return (
       <div className={css.notFoundCampers}>
         Unfortunately, no camper has been found that would meet all the
@@ -72,7 +98,7 @@ export default function CatalogList() {
       </ul>
       {isThereMore && (
         <button className="btn btnWhite" onClick={handlePage}>
-          Load more
+          {loading ? "Loading..." : "Load more"}
         </button>
       )}
     </div>

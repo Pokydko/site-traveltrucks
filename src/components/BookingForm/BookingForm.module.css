@@ -48,24 +48,3 @@
 .bookingForm textarea:focus {
   border: 1px solid #ffc531;
 }
-
-.dateInputWrapper {
-  position: relative;
-}
-
-.dateInputWrapper .placeholder {
-  position: absolute;
-  top: 50%;
-  left: 18px;
-  background-color: #f7f7f7;
-  color: #6c717b;
-  pointer-events: none;
-  transition: 0.3s ease;
-  transform: translateY(-50%);
-}
-
-.dateInputWrapper input:focus + .placeholder,
-.dateInputWrapper input.filled + .placeholder {
-  opacity: 0;
-  visibility: hidden;
-}

@@ -31,7 +31,7 @@ export default function CatalogCard({
         <a
           className="btn"
           href={`/catalog/${id}/features`}
-          target="_blank"
+          // target="_blank"
           rel="noreferrer"
         >
           Show more

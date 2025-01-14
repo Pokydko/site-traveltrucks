@@ -13,6 +13,7 @@ try {
 
 const INITIAL_STATE = {
   campers: [],
+  campersLocation: "",
   filters: {
     AC: false,
     Bathroom: false,
@@ -42,7 +43,7 @@ const INITIAL_STATE = {
   favorites: campersFromStorage,
   page: 1,
   ready: false,
-  limit: 3,
+  limit: 4,
   refresh: true,
   isThereMore: false,
   loading: false,
@@ -73,6 +74,9 @@ const campersSlice = createSlice({
     refreshCampers(state) {
       state.campers = [];
       state.refresh = true;
+    },
+    setLocation(state, action) {
+      state.campersLocation = action.payload;
     },
     setFilter(state, action) {
       if (state.filters[action.payload] === true) {
@@ -133,7 +137,6 @@ const campersSlice = createSlice({
     },
     initializeFilters(state, action) {
       Object.entries(action.payload).forEach(([key, value]) => {
-        // Щоб було веселіше - стейт у мене має властивості з великої літери (мені на початку здалося, що так tooltips можна одразу використовувати і виглядатиме по-людськи. Тепер я знаю точно: краще стейт робити або все малими, або так, як з бекенду прийде...)
         const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
         if (formattedKey === "Transmission") {
           if (value === "manual") {
@@ -173,6 +176,8 @@ const campersSlice = createSlice({
           }
         } else if (formattedKey in state.filters) {
           state.filters[formattedKey] = value === "true" || value === true;
+        } else if (key === "location") {
+          state.campersLocation = value;
         }
         state.page = 1;
         state.ready = true;
@@ -210,6 +215,7 @@ const campersSlice = createSlice({
 
 export const {
   loadMore,
+  setLocation,
   setFilter,
   refreshCampers,
   initializeFilters,

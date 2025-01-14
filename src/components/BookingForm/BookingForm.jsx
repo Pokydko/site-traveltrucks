@@ -1,15 +1,19 @@
 import css from "./BookingForm.module.css";
+import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DatePicker from "react-datepicker"; // reactdatepicker.com
 
 export default function BookingForm({ id }) {
+  const today = new Date();
+  const [startDate, setStartDate] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, date, comment } = e.target;
+    const { name, email, comment } = e.target;
     const bookingData = {
       name: name.value.trim(),
       email: email.value.trim(),
-      date: date.value,
+      date: startDate,
       comment: comment.value.trim(),
       camperId: id,
     };
@@ -30,18 +34,16 @@ export default function BookingForm({ id }) {
       toast.error("Please select a booking date");
       return;
     }
-    const selectedDate = new Date(bookingData.date);
-    const today = new Date();
-    const oneYearAhead = new Date(today);
-    oneYearAhead.setFullYear(today.getFullYear() + 1);
-    if (selectedDate < today) {
-      toast.error("Booking date cannot be in the past.");
-      return;
-    }
-    if (selectedDate > oneYearAhead) {
-      toast.error("Booking date cannot be more than one year ahead.");
-      return;
-    }
+    // const oneYearAhead = new Date(today);
+    // oneYearAhead.setFullYear(today.getFullYear() + 1);
+    // if (startDate > oneYearAhead) {
+    //   toast.error("Booking date cannot be more than one year ahead.");
+    //   return;
+    // }
+    // if (startDate < today) {
+    //   toast.error("Booking date cannot be in the past.");
+    //   return;
+    // }
 
     try {
       // import axios from "axios";
@@ -51,11 +53,13 @@ export default function BookingForm({ id }) {
       //   bookingData
       // );
       toast.success("Booking successfully submitted!");
+      setStartDate(null);
       e.target.reset();
     } catch (error) {
       toast.error("There was an error with your booking. Please try again.");
     }
   };
+
   return (
     <div>
       <form className={css.bookingForm} onSubmit={handleSubmit}>
@@ -65,17 +69,17 @@ export default function BookingForm({ id }) {
         </div>
         <input type="text" placeholder="Name*" name="name" required />
         <input type="email" placeholder="Email*" name="email" required />
-        <div className={css.dateInputWrapper}>
-          <input
-            type="date"
-            name="date"
-            required
-            onChange={(e) =>
-              e.target.classList.toggle(css.filled, e.target.value)
-            }
-          />
-          <span className={css.placeholder}>Booking date*</span>
-        </div>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          minDate={today}
+          maxDate={new Date().setFullYear(new Date().getFullYear() + 1)}
+          placeholderText="Select a booking date"
+          dateFormat="EEE, yyyy-MM-dd"
+          className={css.datePicker}
+          calendarStartDay={1}
+          portalId="datepicker-portal" /* render outside the form */
+        />
         <textarea type="text" placeholder="Comment" name="comment" />
         <button className="btn" type="submit">
           Send
