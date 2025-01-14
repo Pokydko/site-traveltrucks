@@ -8,7 +8,7 @@ import {
   loadMore,
   refreshCampers,
   initializeFilters,
-  setReady,
+  // setReady,
 } from "../../redux/campers/slice.js";
 import { selectCampers } from "../../redux/campers/selectors";
 import CatalogCard from "../CatalogCard/CatalogCard";
@@ -36,15 +36,19 @@ export default function CatalogList() {
     dispatch(loadMore());
   };
 
-  useEffect(() => {
-    dispatch(refreshCampers());
-  }, [dispatch, campersLocation, filters, camperForms]);
+  // useEffect(() => {
+  //   dispatch(refreshCampers());
+  // }, [dispatch, campersLocation, filters, camperForms]);
 
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(location.search));
     dispatch(refreshCampers());
     dispatch(initializeFilters(params));
   }, [dispatch, location.search]);
+
+  useEffect(() => {
+    if (page > 1) dispatch(fetchCampers({ filters, limit }));
+  }, [dispatch, filters, limit, page]);
 
   useEffect(() => {
     const filterQuery = createFilterQuery(filters);
@@ -60,7 +64,9 @@ export default function CatalogList() {
     if (campersLocation) filterQuery.location = campersLocation;
     setSearchParams({ ...filterQuery, ...queryForm }, { replace: true });
     // if (page === 1) dispatch(refreshCampers());
-    dispatch(fetchCampers({ limit, page }));
+    if (ready) {
+      dispatch(fetchCampers({ filters, limit }));
+    }
   }, [
     dispatch,
     setSearchParams,
@@ -68,16 +74,10 @@ export default function CatalogList() {
     campersLocation,
     filters,
     camperForms,
-    page,
     limit,
+    ready,
     location.pathname,
   ]);
-
-  useEffect(() => {
-    if (ready) {
-      dispatch(fetchCampers({ filters, page }));
-    } else dispatch(setReady());
-  }, [dispatch, filters, page, ready]);
 
   if (!loading && campers.length === 0)
     return (

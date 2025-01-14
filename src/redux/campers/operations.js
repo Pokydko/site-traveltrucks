@@ -15,7 +15,7 @@ export const fetchCampers = createAsyncThunk(
     try {
       const camperId = id === undefined ? "" : `/${id}`;
       const response = await instance.get(camperId, {
-        params: urlParams, // Передаємо параметри через `params`
+        params: urlParams,
         headers: {
           accept: "application/json",
         },
