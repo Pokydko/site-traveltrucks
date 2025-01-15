@@ -11,7 +11,7 @@ export const fetchCampers = createAsyncThunk(
     const urlParams = Object.fromEntries(new URLSearchParams(location.search));
     urlParams.limit = limit;
     urlParams.page = page;
-
+    console.dir(urlParams);
     try {
       const camperId = id === undefined ? "" : `/${id}`;
       const response = await instance.get(camperId, {
