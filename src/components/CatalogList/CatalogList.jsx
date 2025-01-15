@@ -42,7 +42,8 @@ export default function CatalogList() {
   }, [dispatch, location.search]);
 
   useEffect(() => {
-    if (new URLSearchParams(location.search).size === 0 && !loading) {
+    if (loading) return;
+    if (new URLSearchParams(location.search).size === 0) {
       dispatch(fetchCampers({ limit, page }));
     } else if (page > 1) dispatch(fetchCampers({ filters, limit, page }));
     else if (ready) {
