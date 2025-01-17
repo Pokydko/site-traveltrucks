@@ -19,18 +19,10 @@ export default function CatalogList() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const campers = useSelector(selectCampers);
-  const {
-    page,
-    limit,
-    isThereMore,
-    campersLocation,
-    filters,
-    camperForms,
-    ready,
-    loading,
-  } = useSelector((state) => state.campers);
+  const { page, isThereMore, campersLocation, filters, camperForms, loading } =
+    useSelector((state) => state.campers);
   const handlePage = () => {
     dispatch(loadMore());
   };
@@ -42,18 +34,21 @@ export default function CatalogList() {
   }, [dispatch, location.search]);
 
   useEffect(() => {
-    if (loading) return;
-    if (new URLSearchParams(location.search).size === 0) {
-      dispatch(fetchCampers({ limit, page }));
-    } else if (page > 1) dispatch(fetchCampers({ filters, limit, page }));
-    else if (ready) {
-      dispatch(fetchCampers({ filters, limit }));
-    }
-  }, [dispatch, filters, limit, page, location.search, ready]);
+    dispatch(
+      fetchCampers({
+        searchParams: {
+          ...Object.fromEntries(new URLSearchParams(searchParams)),
+        },
+      })
+    );
+  }, [dispatch, searchParams, page]);
 
   useEffect(() => {
     const filterQuery = createFilterQuery(filters);
-    const searchParams = new URLSearchParams(filterQuery);
+    if (campersLocation) filterQuery.location = campersLocation;
+    const queryForm = createFilterQuery(camperForms);
+    const searchParams = new URLSearchParams({ ...filterQuery, ...queryForm });
+    setSearchParams({ ...filterQuery, ...queryForm }, { replace: true });
     navigate(
       {
         pathname: location.pathname,
@@ -61,9 +56,6 @@ export default function CatalogList() {
       },
       { replace: true }
     );
-    const queryForm = createFilterQuery(camperForms);
-    if (campersLocation) filterQuery.location = campersLocation;
-    setSearchParams({ ...filterQuery, ...queryForm }, { replace: true });
   }, [
     dispatch,
     setSearchParams,

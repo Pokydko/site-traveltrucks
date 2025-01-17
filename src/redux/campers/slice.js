@@ -42,7 +42,7 @@ const INITIAL_STATE = {
   },
   favorites: campersFromStorage,
   page: 1,
-  ready: true,
+  // ready: true,
   limit: 4,
   refresh: true,
   isThereMore: false,
@@ -66,9 +66,6 @@ const campersSlice = createSlice({
         state.favorites = state.favorites.filter((_, i) => i !== index);
       }
     },
-    // setReady(state) {
-    //   state.ready = true;
-    // },
     refreshCampers(state) {
       state.campers = [];
       state.refresh = true;
@@ -178,7 +175,6 @@ const campersSlice = createSlice({
           state.campersLocation = value;
         }
         state.page = 1;
-        state.ready = true;
       });
     },
   },
@@ -187,7 +183,6 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.ready = false;
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isThereMore = action.payload.total > state.page * state.limit;
@@ -217,7 +212,6 @@ export const {
   setFilter,
   refreshCampers,
   initializeFilters,
-  // setReady,
   switchFavorites,
 } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;
