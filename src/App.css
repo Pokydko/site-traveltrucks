@@ -2,6 +2,7 @@
 @import "react-datepicker/dist/react-datepicker.css";
 
 body {
+  margin-left: var(--scrollbar-width, 0px);
   background: #fff;
   color: #101828;
   font-weight: 400;
@@ -89,6 +90,30 @@ button {
   background-color: #fff;
   color: #101828;
 }
+
+/* header styles */
+header {
+  position: sticky;
+  top: -20px; /* for hiding */
+  z-index: 1;
+  max-width: 1440px;
+  height: 72px;
+  margin: 0 auto;
+  background-color: #f7f7f7ee;
+}
+.headerContainer {
+  position: sticky;
+  top: 8px; /* half of header negative top-position */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.hold168px {
+  width: 168px;
+}
+/* end header styles */
 
 /* Стилі календаря */
 .react-datepicker__month-container {

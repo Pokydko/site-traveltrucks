@@ -1,17 +1,8 @@
 .nav {
-  position: fixed;
-  top: 0;
-  left: 50%;
   z-index: 1;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
-  width: 100%;
-  max-width: 1440px;
-  height: 72px;
-  margin: 0 auto;
-  background-color: #f7f7f7;
   font-size: 16px;
-  transform: translateX(-50%);
 }
 @media only screen and (max-width: 693px) {
   .nav {
@@ -30,7 +21,7 @@
 }
 
 .link {
-  padding: 24px 16px;
+  padding: 16px;
 }
 .link:hover {
   color: #ffc531;

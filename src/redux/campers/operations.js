@@ -10,7 +10,7 @@ export const fetchCampers = createAsyncThunk(
   async ({ id, searchParams }, thunkAPI) => {
     const { page, limit } = thunkAPI.getState().campers;
     const params = { ...searchParams, page, limit };
-    console.dir(params);
+    // console.dir(params);
     try {
       const camperId = id === undefined ? "" : `/${id}`;
       const response = await instance.get(camperId, {

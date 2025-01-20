@@ -1,11 +1,10 @@
 .logo {
-  position: fixed;
-  top: 0;
-  left: 64px;
   z-index: 100;
-  padding-top: 28px;
-  padding-bottom: 28px;
-  font-size: 0;
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--scrollbar-width, 0px);
+  margin-left: calc(48px - var(--scrollbar-width, 0px));
+  padding: 16px;
 }
 .logoSvg {
   width: 136px;
@@ -18,13 +17,14 @@
 .logo:focus .logoSvg {
   fill: #d84343;
 }
-@media only screen and (max-width: 416px) {
+@media only screen and (min-width: 1472px) {
   .logo {
-    left: 16px;
+    margin-right: 0;
+    margin-left: 48px;
   }
 }
-@media only screen and (min-width: 1440px) {
+@media only screen and (max-width: 416px) {
   .logo {
-    left: calc(64px + (100% - 1440px) / 2);
+    margin-left: 16px;
   }
 }

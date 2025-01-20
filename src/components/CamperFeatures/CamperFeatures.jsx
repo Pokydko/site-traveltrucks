@@ -11,7 +11,7 @@ export default function CamperFeatures() {
 
   return (
     <div className={css.featuresBox}>
-      <VehicleEquipment camper={chosenCamper} />
+      <VehicleEquipment camper={chosenCamper} scrollbar={true} />
       <div className={css.detailsBox}>
         <h2 className={css.title}>Vehicle details</h2>
         <div className={css.details}>

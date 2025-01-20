@@ -2,11 +2,11 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  overflow-x: hidden;
   max-width: 1440px;
   height: calc(100vh - 72px);
   max-height: 696px;
   margin: 0 auto;
-  margin-top: 72px;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("../../img/hero-bg.jpg");
   background-color: gray;
